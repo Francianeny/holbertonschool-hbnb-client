@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Places - hbnb</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="hbnb">
+        </div>
+        <div class="login">
+            <a href="login.html">Login</a>
+        </div>
+    </header>
+    <main>
+        <h2>Available Places</h2>
+        <label for="country-filter">Filter by country:</label>
+        <select id="country-filter">
+            <option value="all">All</option>
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+        </select>
+        <div class="places-list">
+            <div class="place-card">
+                <h3>Beautiful Beach House</h3>
+                <p>Price per night: $150</p>
+                <p>Location: Los Angeles, United States</p>
+                <button onclick="window.location.href='details.html'">View Details</button>
+            </div>
+            <div class="place-card">
+                <h3>Cozy Cabin</h3>
+                <p>Price per night: $100</p>
+                <p>Location: Toronto, Canada</p>
+                <button onclick="window.location.href='details.html'">View Details</button>
+            </div>
+            <div class="place-card">
+                <h3>Modern Apartment</h3>
+                <p>Price per night: $200</p>
+                <p>Location: New York, United States</p>
+                <button onclick="window.location.href='details.html'">View Details</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
