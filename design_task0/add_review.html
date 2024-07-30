@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Review - hbnb</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="hbnb">
+        </div>
+        <div class="login">
+            <a href="login.html">Login</a>
+        </div>
+    </header>
+    <main>
+        <div class="review-form-container">
+            <h2>Add Review</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="review">Review:</label>
+                <textarea id="review" name="review" required></textarea>
+
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating" required>
+                    <option value="5">?????</option>
+                    <option value="4">?????</option>
+                    <option value="3">?????</option>
+                    <option value="2">?????</option>
+                    <option value="1">?????</option>
+                </select>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
