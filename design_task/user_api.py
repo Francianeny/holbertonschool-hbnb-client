@@ -5,7 +5,7 @@
 import datetime
 import jwt
 import bcrypt
-from flask import request, jsonify
+from flask import request
 from flask_restx import Namespace, Resource, fields
 from data_manager import DataManager
 
@@ -85,27 +85,4 @@ class UserResource(Resource):
         """Delete an existing user."""
         deleted = data_manager.delete_user(user_id)
         if deleted:
-            return '', 204
-        else:
-            api.abort(404, "User not found")
-
-@api.route('/login')
-class UserLogin(Resource):
-    @api.expect(login_model, validate=True)
-    @api.response(200, 'Successfully logged in')
-    @api.response(401, 'Invalid email or password')
-    def post(self):
-        """Authenticate a user and return a JWT token."""
-        login_data = request.json
-        email = login_data.get('email')
-        password = login_data.get('password')
-
-        user = data_manager.get_user_by_email(email)
-        if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-            token = jwt.encode({
-                'user_id': user['user_id'],
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
-            }, SECRET_KEY, algorithm='HS256')
-            return {'token': token}, 200
-        else:
-            return {'message': 'Invalid email or password'}, 401
+            return '',
