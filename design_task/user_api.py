@@ -108,4 +108,4 @@ class UserLogin(Resource):
             }, SECRET_KEY, algorithm='HS256')
             return {'token': token}, 200
         else:
-            return {'message': 'Invalid email or password'}, 401 #i
+            return {'message': 'Invalid email or password'}, 401
