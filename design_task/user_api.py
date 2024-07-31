@@ -7,6 +7,7 @@ import jwt
 import bcrypt
 from flask import request
 from flask_restx import Namespace, Resource, fields
+from design_task.token_service import create_token, decode_token
 from data_manager import DataManager
 
 api = Namespace('users', description='User related operations')
@@ -118,10 +119,7 @@ class UserLogin(Resource):
 
             user = data_manager.get_user_by_email(email)
             if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-                token = jwt.encode({
-                    'user_id': user['user_id'],
-                    'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
-                }, SECRET_KEY, algorithm='HS256')
+                token = create_token(user['user_id'])
                 return {'token': token}, 200
             else:
                 return {'message': 'Invalid email or password'}, 401
