@@ -126,4 +126,5 @@ class UserLogin(Resource):
             else:
                 return {'message': 'Invalid email or password'}, 401
         except Exception as e:
-            api.abort(500, f"An error occurred: {str(e)}"
+            api.abort(500, f"An error occurred: {str(e)}")
+
