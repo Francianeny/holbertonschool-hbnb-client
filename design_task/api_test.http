@@ -1,0 +1,15 @@
+# Requête GET pour récupérer tous les utilisateurs
+GET http://127.0.0.1:5000/users/
+Content-Type: application/json
+
+###
+
+# Requête POST pour créer un nouvel utilisateur
+POST http://127.0.0.1:5000/users/
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
