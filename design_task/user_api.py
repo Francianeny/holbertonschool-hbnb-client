@@ -1,4 +1,4 @@
-
+#!/usr/bin/python3
 
 from flask_restx import Namespace, Resource, fields
 from design_task.token_service import create_token, decode_token
