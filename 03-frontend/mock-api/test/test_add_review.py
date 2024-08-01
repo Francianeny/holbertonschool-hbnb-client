@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import requests
 
 login_url = "http://127.0.0.1:5000/login"
