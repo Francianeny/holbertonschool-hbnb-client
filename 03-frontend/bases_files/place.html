@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du lieu - hbnb</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <!-- Remplacez "logo.png" par le chemin relatif à votre image si nécessaire -->
+            <img src="logo.png" alt="hbnb">
+        </div>
+        <div class="login">
+            <a href="login.html" class="login-button">Connexion</a>
+        </div>
+    </header>
+    <main>
+        <!-- Section pour afficher les détails du lieu -->
+        <div class="place-details">
+            <img id="placeImage" class="place-image-large" src="" alt="Image du lieu">
+            <div id="placeInfo" class="place-info">
+                <!-- Détails du lieu seront insérés ici -->
+            </div>
+        </div>
+
+        <!-- Section pour afficher les avis -->
+        <div id="reviewsContainer" class="reviews-container">
+            <!-- Les avis seront insérés ici -->
+        </div>
+
+        <!-- Section pour ajouter un avis -->
+        <div class="add-review">
+            <h2>Ajouter un avis</h2>
+            <form id="reviewForm">
+                <label for="reviewText">Écrire un avis :</label>
+                <textarea id="reviewText" placeholder="Écrire un avis" required></textarea>
+                <button type="submit">Ajouter un avis</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 hbnb. Tous droits réservés.</p>
+    </footer>
+    <script src="cookies.js"></script>
+    <script src="place_details.js"></script>
+</body>
+</html>
