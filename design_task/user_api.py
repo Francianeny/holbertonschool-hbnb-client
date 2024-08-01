@@ -1,21 +1,19 @@
 #!/usr/bin/python3
-
 """API for managing users"""
 
 import datetime
-import jwt
 import bcrypt
 from flask import request
 from flask_restx import Namespace, Resource, fields
-from design_task.token_service import create_token, decode_token
-from data_manager import DataManager
+from design_task.data_manager import DataManager  # Assurez-vous que le chemin est correct
+from design_task.token_service import create_token, decode_token  # Importations correctes
 
 api = Namespace('users', description='User related operations')
 
 data_manager = DataManager()
-SECRET_KEY = 'your_jwt_secret_key'  # Consider using environment variables for this
+SECRET_KEY = 'your_jwt_secret_key'  # Utilisez des variables d'environnement pour plus de sécurité
 
-# Data model for creating a user
+# Modèle de données pour créer un utilisateur
 user_model = api.model('User', {
     'user_id': fields.String(description='User ID'),
     'username': fields.String(required=True, description='Username'),
@@ -25,7 +23,7 @@ user_model = api.model('User', {
     'updated_at': fields.DateTime(description='Last update date')
 })
 
-# Data model for login
+# Modèle de données pour le login
 login_model = api.model('Login', {
     'email': fields.String(required=True, description='Email'),
     'password': fields.String(required=True, description='Password')
@@ -119,10 +117,14 @@ class UserLogin(Resource):
 
             user = data_manager.get_user_by_email(email)
             if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-                token = create_token(user['user_id'])
+                token = jwt.encode({
+                    'user_id': user['user_id'],
+                    'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+                }, SECRET_KEY, algorithm='HS256')
                 return {'token': token}, 200
             else:
                 return {'message': 'Invalid email or password'}, 401
         except Exception as e:
             api.abort(500, f"An error occurred: {str(e)}")
+
 
