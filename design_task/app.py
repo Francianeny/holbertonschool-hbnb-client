@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from flask import Flask
 from flask_restx import Api
 from design_task.user_api import api as user_api_namespace
