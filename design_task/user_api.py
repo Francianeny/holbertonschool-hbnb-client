@@ -5,8 +5,8 @@ import datetime
 import bcrypt
 from flask import request
 from flask_restx import Namespace, Resource, fields
-from design_task.data_manager import DataManager
-from design_task.token_service import create_token, decode_token
+from data_manager import DataManager
+from token_service import create_token, decode_token
 
 api = Namespace('users', description='User related operations')
 
