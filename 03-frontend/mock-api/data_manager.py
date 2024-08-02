@@ -58,11 +58,11 @@ class DataManager:
         return self.data['places']
 
     def get_place(self, place_id):
-        return next((place for place in self.data['places'] if place['place_id'] == place_id), None)
+        return next((place for place in self.data['places'] if place['id'] == place_id), None)
 
     def save_place(self, place_data):
         place_id = str(len(self.data['places']) + 1)  # Simple ID generation logic
-        place_data['place_id'] = place_id
+        place_data['id'] = place_id
         self.data['places'].append(place_data)
         self.save_data()
         return place_id
