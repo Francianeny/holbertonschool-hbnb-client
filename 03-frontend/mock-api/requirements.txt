@@ -2,3 +2,5 @@ flask==2.2.3
 werkzeug==2.2.3
 flask-restx
 bcrypt
+flask-cors
+flask-jwt-extended
