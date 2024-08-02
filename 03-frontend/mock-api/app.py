@@ -11,36 +11,41 @@ app.config.from_object('config.Config')
 
 jwt = JWTManager(app)
 
+# Load users and places from JSON files
+try:
+    with open('data/users.json') as f:
+        users = json.load(f)
+except FileNotFoundError:
+    users = []
 
-with open('data/users.json') as f:
-    users = json.load(f)
-
-with open('data/places.json') as f:
-    places = json.load(f)
+try:
+    with open('data/places.json') as f:
+        places = json.load(f)
+except FileNotFoundError:
+    places = []
 
 new_reviews = []
 
 @app.route('/login', methods=['POST'])
 def login():
     print("Login endpoint hit")
-    email = request.json.get('email')
-    password = request.json.get('password')
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
 
-    print(f"Received email: {email}")
-    print(f"Received password: {password}")
+    if not email or not password:
+        return jsonify({"msg": "Email and password are required"}), 400
 
     user = next((u for u in users if u['email'] == email and u['password'] == password), None)
 
     if not user:
-        print(f"User not found or invalid password for: {email}")
         return jsonify({"msg": "Invalid credentials"}), 401
 
     access_token = create_access_token(identity=user['id'])
-    print(f"Generated access token: {access_token}")
     return jsonify(access_token=access_token)
+
 @app.route('/places', methods=['GET'])
 def get_places():
-    print("Places endpoint hit")
     response = [
         {
             "id": place['id'],
@@ -59,7 +64,6 @@ def get_places():
 
 @app.route('/places/<place_id>', methods=['GET'])
 def get_place(place_id):
-    print(f"Place endpoint hit for ID: {place_id}")
     place = next((p for p in places if p['id'] == place_id), None)
 
     if not place:
@@ -88,17 +92,22 @@ def get_place(place_id):
 @app.route('/places/<place_id>/reviews', methods=['POST'])
 @jwt_required()
 def add_review(place_id):
-    print(f"Add review endpoint hit for place ID: {place_id}")
     current_user_id = get_jwt_identity()
     user = next((u for u in users if u['id'] == current_user_id), None)
 
     if not user:
         return jsonify({"msg": "User not found"}), 404
 
-    review_text = request.json.get('review')
+    data = request.get_json()
+    rating = data.get('rating')
+    review_text = data.get('review')
+
+    if rating is None or review_text is None:
+        return jsonify({"msg": "Rating and review text are required"}), 400
+
     new_review = {
         "user_name": user['name'],
-        "rating": request.json.get('rating'),
+        "rating": rating,
         "comment": review_text,
         "place_id": place_id
     }
