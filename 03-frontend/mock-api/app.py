@@ -7,6 +7,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from flask_cors import CORS
 from token_service import encode_token, token_required
 from data_manager import DataManager
+import os
 
 app = Flask(__name__)
 CORS(app)
