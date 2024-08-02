@@ -17,12 +17,14 @@ try:
         users = json.load(f)
 except FileNotFoundError:
     users = []
+    print("Warning: 'data/users.json' file not found. Using empty user list.")
 
 try:
     with open('data/places.json') as f:
         places = json.load(f)
 except FileNotFoundError:
     places = []
+    print("Warning: 'data/places.json' file not found. Using empty places list.")
 
 new_reviews = []
 
@@ -34,18 +36,23 @@ def index():
 def login():
     print("Login endpoint hit")
     data = request.get_json()
+    print(f"Received data: {data}")
     email = data.get('email')
     password = data.get('password')
 
     if not email or not password:
+        print("Missing email or password")
         return jsonify({"msg": "Email and password are required"}), 400
 
     user = next((u for u in users if u['email'] == email and u['password'] == password), None)
+    print(f"User found: {user}")
 
     if not user:
+        print("Invalid credentials")
         return jsonify({"msg": "Invalid credentials"}), 401
 
     access_token = create_access_token(identity=user['id'])
+    print(f"Generated access token: {access_token}")
     return jsonify(access_token=access_token)
 
 @app.route('/places', methods=['GET'])
