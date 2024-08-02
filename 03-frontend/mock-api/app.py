@@ -6,8 +6,7 @@ from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
 from token_service import encode_token, decode_token, token_required
-from data_manager import DataManager # data_manager .py est importé correctement
-import json
+from data_manager import DataManager
 
 app = Flask(__name__)
 CORS(app)
@@ -15,22 +14,8 @@ app.config.from_object('config.Config')
 
 jwt = JWTManager(app)
 
-# Load users and places from JSON files
-try:
-    with open('data/users.json') as f:
-        users = json.load(f)
-except FileNotFoundError:
-    users = []
-    print("Warning: 'data/users.json' file not found. Using empty user list.")
-
-try:
-    with open('data/places.json') as f:
-        places = json.load(f)
-except FileNotFoundError:
-    places = []
-    print("Warning: 'data/places.json' file not found. Using empty places list.")
-
-new_reviews = []
+# Initialize DataManager
+data_manager = DataManager()
 
 @app.route('/')
 def index():
@@ -48,7 +33,7 @@ def login():
         print("Missing email or password")
         return jsonify({"msg": "Email and password are required"}), 400
 
-    user = next((u for u in users if u['email'] == email and u['password'] == password), None)
+    user = data_manager.verify_user(email, password)
     print(f"User found: {user}")
 
     if not user:
@@ -61,6 +46,7 @@ def login():
 
 @app.route('/places', methods=['GET'])
 def get_places():
+    places = data_manager.get_places()
     response = [
         {
             "id": place['id'],
@@ -79,7 +65,7 @@ def get_places():
 
 @app.route('/places/<place_id>', methods=['GET'])
 def get_place(place_id):
-    place = next((p for p in places if p['id'] == place_id), None)
+    place = data_manager.get_place(place_id)
 
     if not place:
         return jsonify({"msg": "Place not found"}), 404
@@ -108,7 +94,7 @@ def get_place(place_id):
 @jwt_required()
 def add_review(place_id):
     current_user_id = get_jwt_identity()
-    user = next((u for u in users if u['id'] == current_user_id), None)
+    user = data_manager.get_user(current_user_id)
 
     if not user:
         return jsonify({"msg": "User not found"}), 404
