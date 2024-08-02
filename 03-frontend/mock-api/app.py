@@ -26,6 +26,10 @@ except FileNotFoundError:
 
 new_reviews = []
 
+@app.route('/')
+def index():
+    return "Welcome to the Place Review API!"
+
 @app.route('/login', methods=['POST'])
 def login():
     print("Login endpoint hit")
