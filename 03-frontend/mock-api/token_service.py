@@ -1,12 +1,6 @@
 #!/usr/bin/python3
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from flask import request, jsonify, Flask
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from functools import wraps
-
-# Configuration de votre application Flask
-app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'your_secret_key'  # Changez ceci pour une clé secrète plus sécurisée
-jwt = JWTManager(app)
 
 def encode_token(user_id):
     """
@@ -25,4 +19,3 @@ def token_required(f):
         user_id = get_jwt_identity()
         return f(user_id, *args, **kwargs)
     return decorator
-
