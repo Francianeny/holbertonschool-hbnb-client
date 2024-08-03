@@ -6,7 +6,7 @@ import bcrypt
 from flask import request
 from flask_restx import Namespace, Resource, fields
 from data_manager import DataManager
-from token_service import create_token, decode_token
+from token_service import create_token
 
 api = Namespace('users', description='User related operations')
 
