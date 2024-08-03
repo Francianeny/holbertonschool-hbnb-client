@@ -2,7 +2,7 @@
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from functools import wraps
 
-def encode_token(user_id):
+def create_token(user_id):
     """
     Encode un token JWT pour un utilisateur avec `user_id`.
     """
