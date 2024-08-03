@@ -10,6 +10,8 @@ from token_service import create_token, token_required
 from data_manager import DataManager
 import os
 
+load_dotenv()
+
 app = Flask(__name__)
 CORS(app)
 app.config.from_object('config.Config')
