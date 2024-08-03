@@ -7,6 +7,7 @@ from flask_cors import CORS
 from user_api import api as user_api
 from token_service import create_token, token_required
 from data_manager import DataManager
+import os
 
 app = Flask(__name__)
 CORS(app)
