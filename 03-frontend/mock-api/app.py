@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 
 from flask_restx import Api
-from .user_api import api as user_api
+from user_api import api as user_api
 from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
-from .token_service import encode_token, token_required
-from .data_manager import DataManager
+from token_service import create_token, token_required
+from data_manager import DataManager
 import os
 
 app = Flask(__name__)
