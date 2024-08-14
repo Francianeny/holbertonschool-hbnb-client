@@ -3,39 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - hbnb</title>
+    <title>Login</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
 </head>
 <body>
     <header>
-        <div class="logo">
-            <!-- Remplacez "logo.png" par le chemin relatif à votre image si nécessaire -->
-            <img src="logo.png" alt="hbnb">
-        </div>
-        <div class="login">
-            <a href="index.html" class="login-button">Retour à l'accueil</a>
-        </div>
+        <a href="index.html">
+            <img src="logo.png" alt="Application Logo" class="logo">
+        </a>
     </header>
     <main>
-        <div class="login-container">
-            <h2>Connexion</h2>
-            <form id="login-form">
-                <label for="email">Email :</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="password">Mot de passe :</label>
-                <input type="password" id="password" name="password" required>
-
-                <button type="submit">Se connecter</button>
-            </form>
-            <div id="error-message" class="error-message"></div>
-        </div>
+        <form id="login-form">
+            <h2>Login</h2>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="error-message"></p>
     </main>
     <footer>
-        <p>&copy; 2024 hbnb. Tous droits réservés.</p>
+        <p>© 2024 HBnB Evolution. All rights reserved.</p>
     </footer>
-    <script src="cookies.js"></script>
-    <script src="login.js"></script>
 </body>
 </html>
-
